@@ -3,9 +3,9 @@ name: Deploy Terraform
 
 # to start pipeline on event basis 
 on:
-   push:
-    branches:
-       - master
+  # push:
+  #   branches:
+  #      - master
   pull_request:
     branches:
       - master

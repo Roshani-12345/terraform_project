@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v2
@@ -57,7 +57,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v2
@@ -91,7 +91,7 @@ jobs:
      
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v2
@@ -120,7 +120,7 @@ jobs:
       id: plan
       working-directory: ${{ env.TF_WORKING_DIR_EX3 }}
       run: terraform plan -out=tfplan
-         
+
     - name: apply Terraform 
        #if: github.ref == 'refs/heads/master'  # Only apply on the main branch
       working-directory: ${{ env.TF_WORKING_DIR_EX3 }}
