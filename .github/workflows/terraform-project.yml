@@ -1,5 +1,4 @@
-# pipeline name
-name: Deploy Terraform
+name: Deploy1 Terraform
 
 # to start pipeline on event basis 
 on:
