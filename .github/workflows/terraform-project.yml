@@ -63,8 +63,8 @@ jobs:
       
     - name: apply Terraform 
        #if: github.ref == 'refs/heads/master'  # Only apply on the main branch
-       working-directory: ${{ env.TF_WORKING_DIR_EX3 }}
-       run: terraform apply -auto-approve tfplan
+      working-directory: ${{ env.TF_WORKING_DIR_EX3 }}
+      run: terraform apply -auto-approve tfplan
 
 
   # excerise2:  #job name
