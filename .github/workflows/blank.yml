@@ -39,7 +39,7 @@ jobs:
   stage2:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Run a one-line script from stage2
         run : echo Hello,world stage2
