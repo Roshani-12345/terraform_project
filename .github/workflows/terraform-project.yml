@@ -11,7 +11,7 @@ on:
 
 # jobs means stages
 jobs:
-  excerise1:  #job name
+  tf-init:  #job name
 
     # online server provided by github to run application code 
     runs-on: ubuntu-latest
@@ -19,8 +19,6 @@ jobs:
     env:  #env variable to use while runing pipeline
       TF_VERSION: 1.1.0  # Specify your Terraform version here
       TF_WORKING_DIR_EX3: ./excerise3/ # Path to your Terraform code directory
-     
-
 
     steps:
     - name: Checkout code
@@ -30,14 +28,6 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
         terraform_version: ${{ env.TF_VERSION }}
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-south-1  # Specify your AWS region here
-
 
     - name: Run a multi-line script in stage1
       run: |
@@ -56,11 +46,68 @@ jobs:
       working-directory: ${{ env.TF_WORKING_DIR_EX3 }}
       run: terraform validate
 
+  tf-plan:  #job name
+
+    # online server provided by github to run application code 
+    runs-on: ubuntu-latest
+
+    env:  #env variable to use while runing pipeline
+      TF_VERSION: 1.1.0  # Specify your Terraform version here
+      TF_WORKING_DIR_EX3: ./excerise3/ # Path to your Terraform code directory
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: ${{ env.TF_VERSION }}
+
+    - name: Initialize Terraform
+      working-directory: ${{ env.TF_WORKING_DIR_EX3 }}
+      run: |
+        pwd
+        ls -la
+        terraform init
+
     - name: Plan Terraform
       id: plan
       working-directory: ${{ env.TF_WORKING_DIR_EX3 }}
       run: terraform plan -out=tfplan
-      
+
+  tf-apply:  #job name
+
+    # online server provided by github to run application code 
+    runs-on: ubuntu-latest
+
+    env:  #env variable to use while runing pipeline
+      TF_VERSION: 1.1.0  # Specify your Terraform version here
+      TF_WORKING_DIR_EX3: ./excerise3/ # Path to your Terraform code directory
+     
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: ${{ env.TF_VERSION }}  
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-south-1  # Specify your AWS region here
+
+    - name: Initialize Terraform
+      working-directory: ${{ env.TF_WORKING_DIR_EX3 }}
+      run: |
+        pwd
+        ls -la
+        terraform init
+
     - name: apply Terraform 
        #if: github.ref == 'refs/heads/master'  # Only apply on the main branch
       working-directory: ${{ env.TF_WORKING_DIR_EX3 }}
