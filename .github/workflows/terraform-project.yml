@@ -5,6 +5,7 @@ on:
   push:
     branches:
        - master
+       - master1
   pull_request:
     branches:
       - master
